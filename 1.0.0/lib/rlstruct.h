@@ -21,6 +21,7 @@ typedef struct length
 } rle_t;
 
 rle_t 	*rleinit 	(const char *format);
+void	 rleapp		(rle_t *input, const char *what, size_t len);
 void 	 rleclean	(rle_t *input);
 
 #ifdef __cplusplus
