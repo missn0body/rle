@@ -40,6 +40,7 @@ void rleapp(rle_t *input, const char *what, size_t len)
 
 void rleclean(rle_t *input)
 {
+	// Like a nesting doll, just to be safe
 	free(input->buf);
 	free(input->format);
 	regfree(&input->regobj);

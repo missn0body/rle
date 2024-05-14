@@ -12,8 +12,8 @@ extern "C" {
 
 #include "rlstruct.h"
 
-void rle_enc(rle_t *input);
-void rle_dec(rle_t *input);
+bool rle_enc(rle_t *input, const char *filename);
+bool rle_dec(rle_t *input, char *out);
 
 #ifdef __cplusplus
 }

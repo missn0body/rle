@@ -4,13 +4,20 @@
 
 int main(int argc, char *argv[])
 {
-	rle_t *test = rleinit(defpattern);
-	if(test == nullptr) { perror(argv[0]); return -1; }
+	rle_t *robj = rleinit(defpattern);
+	if(robj == nullptr) { perror(argv[0]); return -1; }
 
-	char mes[] = "hello, world";
-	rleapp(test, mes, strlen(mes));
-	printf("\"%s\": %ld\n", test->buf, test->len);
+	if(argv[1] != nullptr)
+	{
+		if(rle_enc(robj, argv[1]) == false)
+		{
+			perror(argv[0]);
+			return -1;
+		}
+	}
+	else rleapp(robj, "Hello, world", 13);
+	printf("%s\n%ld\n", rlebuf(robj), rlelen(robj));
 
-	rleclean(test);
+	rleclean(robj);
 	return 0;
 }

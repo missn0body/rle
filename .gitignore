@@ -36,8 +36,8 @@
 *.tar
 *.gz
 
-# docopt scripts
-*.py
+# Test files
+*.txt
 
 # Notes
 TODO

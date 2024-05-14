@@ -20,9 +20,12 @@ typedef struct length
 	regex_t regobj;	// Regex object holding the format
 } rle_t;
 
-rle_t 	*rleinit 	(const char *format);
-void	 rleapp		(rle_t *input, const char *what, size_t len);
-void 	 rleclean	(rle_t *input);
+rle_t		*rleinit	(const char *format);
+void	 	 rleapp		(rle_t *input, const char *what, size_t len);
+void 	 	 rleclean 	(rle_t *input);
+
+inline char 	*rlebuf		(rle_t *input) { return input->buf; }
+inline size_t 	 rlelen		(rle_t *input) { return input->len; }
 
 #ifdef __cplusplus
 }
