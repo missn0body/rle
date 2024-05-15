@@ -13,6 +13,7 @@ extern "C" {
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <regex.h>
 
 static constexpr short bufsize = 256;
