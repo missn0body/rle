@@ -13,15 +13,14 @@ bool rle_enc(rle_t *input, const char *filename)
 
 	while(fgets(line, sizeof(line), fobj) != nullptr)
 	{
-		for(int i = 0; line[i + 1] != '\0'; i++)
+		for(int i = 0; line[i] != '\0'; i++)
 		{
 			// Get current and next character to compare
 			cur = line[i], next = line[i + 1];
 
 			// If we come across any formatting characters, just
 			// append them as usual
-			if(cur == '\n'  || cur == '\t')  { rleapp(input, &cur, 1);  run = 1; continue; }
-			if(next == '\n' || next == '\t') { rleapp(input, &next, 1); run = 1; continue; }
+			if(cur == '\n' || cur == '\t') { rleapp(input, &cur, 1); run = 1; continue; }
 
 			// Increment the amount of characters we see
 			if(cur == next) run++;
