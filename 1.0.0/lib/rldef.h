@@ -14,11 +14,9 @@ extern "C" {
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <regex.h>
 
 static constexpr short bufsize = 256;
 static constexpr short patsize = (bufsize / 2);
-static const char *defpattern = "(\\d+)(\\w{1})";
 
 #ifdef __cplusplus
 }

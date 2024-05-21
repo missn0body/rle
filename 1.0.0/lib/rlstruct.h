@@ -15,12 +15,10 @@ extern "C" {
 typedef struct length
 {
 	char *buf;	// Buffer for entire length
-	char *format;	// Format of the buffer as a regex string, like "\d+\w{1}"
 	size_t len;	// Length of the entire length, lol
-	regex_t regobj;	// Regex object holding the format
 } rle_t;
 
-rle_t		*rleinit	(const char *format);
+rle_t		*rleinit	();
 void	 	 rleapp		(rle_t *input, const char *what, size_t len);
 void 	 	 rleclean 	(rle_t *input);
 

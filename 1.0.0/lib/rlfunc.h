@@ -13,7 +13,7 @@ extern "C" {
 #include "rlstruct.h"
 
 bool rle_enc(rle_t *input, const char *filename);
-bool rle_dec(rle_t *input, char *out);
+bool rle_dec(rle_t *input, const char *filename);
 
 #ifdef __cplusplus
 }

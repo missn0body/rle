@@ -4,12 +4,12 @@
 
 int main(int argc, char *argv[])
 {
-	rle_t *robj = rleinit(defpattern);
+	rle_t *robj = rleinit();
 	if(robj == nullptr) { perror(argv[0]); return -1; }
 
 	if(argv[1] != nullptr)
 	{
-		if(rle_enc(robj, argv[1]) == false)
+		if(rle_dec(robj, argv[1]) == false)
 		{
 			perror(argv[0]);
 			return -1;
