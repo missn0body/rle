@@ -76,14 +76,19 @@ bool rle_dec(rle_t *input, const char *filename)
 			// characters, just append them as usual
 			if(cur == '\n' || cur == '\t') { rleapp(input, &cur, 1); continue; }
 
+			if(!isdigit(cur)) rleapp(input, &cur, 1);
 			// If the first character is a digit,
 			// and the next a character, then loop
-			if(isdigit(cur))
+			else if(isdigit(cur) && (cur - '0') >= 2 && !isspace(next))
 			{
 				for(short i = 0; i < (cur - '0'); i++)
 					rleapp(input, &next, 1);
+
+				// Each compressed run is a digit and a character.
+				// Since we're done with the uncompressing and
+				// looking ahead, skip over the next character
+				i++;
 			}
-			else if(!isdigit(next) && !isspace(next)) rleapp(input, &next, 1);
 		}
 	}
 
