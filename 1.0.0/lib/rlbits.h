@@ -12,11 +12,9 @@ extern "C" {
 
 #include "rldef.h"
 
-// We're not using "char", just in case there's some
-// dystopian future where they changed the definition
-// of "char". Might be just bias, but I put more trust
-// in stdint.h's typedefs.
-typedef uint8_t flag_t;
+// I'll use chars here, since I don't want to pull
+// out another header file
+typedef char flag_t;
 
 // Shorthands for setting bits in a flag typedef
 #define setbit(x, y)	((x) |= (y))

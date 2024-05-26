@@ -3,7 +3,6 @@
 #include "../lib/rlstruct.h"
 #include "../lib/rlfunc.h"
 
-// TODO: attach a status var to rle_t
 static flag_t status = 0x00;
 const char *VERSION = "1.0.0";
 
@@ -54,8 +53,8 @@ int main(int argc, char *argv[])
 				continue;
 			}
 
-			if(infile[0] == '\0' && !frompipe) strncpy(infile, *argv, namesize);
-			else if(outfile[0] == '\0')	   strncpy(outfile, *argv, namesize);
+			if(infile[0] == '\0' && !frompipe) strncpy(infile, *argv, namesize - 1);
+			else if(outfile[0] == '\0')	   strncpy(outfile, *argv, namesize - 1);
 		}
 
 		if((*argv)[0] == '-')
@@ -97,17 +96,16 @@ int main(int argc, char *argv[])
 	// Determine where to output and where to get our input
 	FILE *input =  (frompipe && infile[0] == '\0')  ? stdin  : fopen(infile, "r");
 	FILE *output = (outfile[0] == '\0') 		? stdout : fopen(outfile, "a");
-	if(input == nullptr || output == nullptr)
-	{
-		perror(programname);
-		return -1;
-	}
+	if(input == nullptr || output == nullptr) { perror(programname); return -1; }
 
 	if(test(status, VERBOSE)) printf("%s: %s\n", programname, (input == stdin)   ? "recieved input from pipe" : "recieved input from file");
 	if(test(status, VERBOSE)) printf("%s: %s\n", programname, (output == stdout) ? "writing to stdout" 	  : "writing to file");
 
+	// Initialize the RLE object
+	rle_t *rleobj = rleinit(input, output);
+	if(rleobj == nullptr) { perror(programname); return -1; }
+
 	// It would be a pretty bad idea to accidentally close standard streams
-	if(input != stdin) fclose(input);
-	if(output != stdout) fclose(output);
+	rleclean(rleobj);
 	return 0;
 }

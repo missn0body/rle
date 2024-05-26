@@ -1,9 +1,15 @@
 #include "../lib/rlstruct.h"
 
-rle_t *rleinit(void)
+rle_t *rleinit(FILE *input, FILE *output)
 {
-	rle_t *newone  = malloc(sizeof(struct length));
+	rle_t *newone = malloc(sizeof(struct length));
 	if(newone == nullptr) return nullptr;
+
+	// If for whatever reason you want to specify
+	// null pointers for the arguments, then let's
+	// just assume standard streams
+	newone->in  = (input == nullptr)  ? stdin  : input;
+	newone->out = (output == nullptr) ? stdout : output;
 
 	// Allocation of the internal buffer isn't too
 	// necessary, since rleapp() allocates the buffer
@@ -31,6 +37,10 @@ void rleclean(rle_t *input)
 {
 	// Like a nesting doll, just to be safe
 	free(input->buf);
+
+	if(input->in  != stdin) fclose(input->in);
+	if(input->out != stdin) fclose(input->out);
+
 	free(input);
 	return;
 }

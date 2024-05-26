@@ -16,14 +16,15 @@ typedef struct length
 {
 	char *buf;	// Buffer for entire length
 	size_t len;	// Length of the entire length, lol
+	FILE *in, *out; // Input and output file handles
 } rle_t;
 
-rle_t		*rleinit	();
+rle_t		*rleinit	(FILE *input, FILE *output);
 void	 	 rleapp		(rle_t *input, const char *what, size_t len);
 void 	 	 rleclean 	(rle_t *input);
 
-inline char 	*rlebuf		(rle_t *input) { return input->buf; }
-inline size_t 	 rlelen		(rle_t *input) { return input->len; }
+inline char 	*rlebuf		(const rle_t *input) { return input->buf; }
+inline size_t 	 rlelen		(const rle_t *input) { return input->len; }
 
 #ifdef __cplusplus
 }
