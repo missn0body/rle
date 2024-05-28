@@ -105,6 +105,14 @@ int main(int argc, char *argv[])
 	rle_t *rleobj = rleinit(input, output);
 	if(rleobj == nullptr) { perror(programname); return -1; }
 
+	if(test(status, DECODE)) rle_dec(rleobj);
+	else rle_enc(rleobj);
+
+	// And output
+	rle_put(rleobj);
+
+	if(test(status, VERBOSE)) printf("%s: rleobj->len reports \"%ld\"\n", programname, rleobj->len);
+
 	// It would be a pretty bad idea to accidentally close standard streams
 	rleclean(rleobj);
 	return 0;

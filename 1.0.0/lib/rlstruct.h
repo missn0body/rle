@@ -23,9 +23,6 @@ rle_t		*rleinit	(FILE *input, FILE *output);
 void	 	 rleapp		(rle_t *input, const char *what, size_t len);
 void 	 	 rleclean 	(rle_t *input);
 
-inline char 	*rlebuf		(const rle_t *input) { return input->buf; }
-inline size_t 	 rlelen		(const rle_t *input) { return input->len; }
-
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

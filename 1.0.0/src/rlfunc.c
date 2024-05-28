@@ -1,18 +1,15 @@
 #include "../lib/rlfunc.h"
 
-bool rle_enc(rle_t *input, const char *filename)
+bool rle_enc(rle_t *input)
 {
 	// (user's) Sanity check
-	if(input == nullptr || filename == nullptr) return false;
-
-	FILE *fobj = fopen(filename, "r");
-	if(fobj == nullptr) return false;
+	if(input == nullptr) return false;
 
 	char line[bufsize] = {0}, append[bufsize] = {0};
 	char cur = '\0', next = '\0';
 	size_t run = 1, written = 0;
 
-	while(fgets(line, sizeof(line), fobj) != nullptr)
+	while(fgets(line, sizeof(line), input->in) != nullptr)
 	{
 		for(int i = 0; line[i] != '\0'; i++)
 		{
@@ -50,22 +47,17 @@ bool rle_enc(rle_t *input, const char *filename)
 		}
 	}
 
-	fclose(fobj);
 	return true;
 }
 
-bool rle_dec(rle_t *input, const char *filename)
+bool rle_dec(rle_t *input)
 {
 	// (user's) Sanity check
-	if(input == nullptr || filename == nullptr) return false;
-
-	FILE *fobj = fopen(filename, "r");
-	if(fobj == nullptr) return false;
+	if(input == nullptr) return false;
 
 	char line[bufsize] = {0};
 	char cur = '\0', next = '\0';
-
-	while(fgets(line, sizeof(line), fobj) != nullptr)
+	while(fgets(line, sizeof(line), input->in) != nullptr)
 	{
 		for(int i = 0; line[i] != '\0'; i++)
 		{
@@ -92,6 +84,11 @@ bool rle_dec(rle_t *input, const char *filename)
 		}
 	}
 
-	fclose(fobj);
 	return true;
+}
+
+void rle_put(rle_t *input)
+{
+	fwrite(input->buf, 1, input->len, input->out);
+	return;
 }
